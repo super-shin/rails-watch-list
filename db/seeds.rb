@@ -7,22 +7,49 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-require 'open-uri'
-Movie.destroy_all
-# List.destroy_all
+require 'uri'
+require 'net/http'
+require 'json'
 
-# the Le Wagon copy of the API
-url = 'http://tmdb.lewagon.com/movie/top_rated'
-response = JSON.parse(URI.open(url).read)
+# Clear existing Movie records before seeding
+puts "Destroying Movie Database"
+# Movie.destroy_all
+puts "DESTROYED"
 
-response['results'].each do |movie_hash|
-  puts
-  p movie_hash
-  # create an instance with the hash
-  Movie.create!(
-    poster_url: "https://image.tmdb.org/t/p/w500" + movie_hash['poster_path'],
-    rating: movie_hash['vote_average'],
-    title: movie_hash['title'],
-    overview: movie_hash['overview']
-  )
+base_url = "https://api.themoviedb.org/3/movie/popular"
+api_key = ENV['TMDB_API_KEY']
+
+page = 1
+max_pages = 500  # Limit to 500 pages
+total_movies = 0  # Initialize total movies counter
+
+while page <= max_pages
+  uri = URI("#{base_url}?api_key=#{api_key}&page=#{page}")
+  response = Net::HTTP.get(uri)
+  result = JSON.parse(response)
+
+  result['results'].each do |movie_hash|
+    next if Movie.exists?(title: movie_hash['title'])
+    next if Movie.exists?(overview: movie_hash['overview'])
+    next if movie_hash['overview'].blank?
+
+    # Create Movie records from the API response
+    Movie.create!(
+      title: movie_hash['title'],
+      overview: movie_hash['overview'],
+      poster_url: "https://image.tmdb.org/t/p/w500#{movie_hash['poster_path']}",
+      rating: movie_hash['vote_average']
+      # Add more fields as needed
+    )
+    total_movies += 1
+    # Add message after every 100 movies seeded
+    if total_movies % 100 == 0
+      puts "Seeded #{total_movies} movies..."
+    end
+  end
+
+  page += 1
 end
+
+puts "Finished fetching movies up to page #{max_pages}"
+puts "Total movies fetched: #{total_movies}"
