@@ -1,8 +1,10 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="<%= root_path %>">WatchList</a>
-    <%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn btn-outline-dark", role: "button" %>
-    <%= link_to "delete", list_path(@list), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-outline-dark', role: "button" %>
+    <div>
+      <%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn btn-outline-dark", role: "button" %>
+      <%= link_to "delete", list_path(@list), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-outline-danger', role: "button" %>
+    </div>
   </div>
 </nav>
 
