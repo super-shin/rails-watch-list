@@ -1,13 +1,31 @@
-<h1><%= @list.name %></h1>
-<p>Find me in app/views/lists/show.html.erb</p>
-<%= link_to "Lists Home", root_path %>
-<%= link_to "Add a movie", new_list_bookmark_path(@list) %>
-<h2>Movies in this List:</h2>
-<ul>
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%= root_path %>">WatchList</a>
+    <%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn btn-outline-dark", role: "button" %>
+  </div>
+</nav>
+
+<div class="list-sign" style="background-image: url('<%= @list.photo.attached? ? cl_image_path(@list.photo.key, crop: "fill") : Faker::LoremFlickr.image(size: '1080x1920', search_terms: [@list.name]) %>');">
+  <div class="list-title"><%= @list.name %></div>
+</div>
+
+<h1>Movies in this List:</h1>
+<div class="row row-cols-1 row-cols-md-6 overflow-auto">
   <% @list.bookmarks.each do |bookmark| %>
-    <li>
-      <%= bookmark.movie.title %>
-      <%= link_to "x", bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
-    </li>
+    <div class="col px-2">
+        <div class="flip-card-container">
+          <div class="flip-card">
+            <div class="card-front">
+              <img src="<%= bookmark.movie.poster_url %>" class="card-img-top img-fluid" alt="<%= bookmark.movie.title %>">
+            </div>
+            <div class="card-back">
+              <div class="card-body">
+                <h5 class="card-title"><%= bookmark.movie.title %></h5>
+                <%= link_to "delete", bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'text-decoration-none' %>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
   <% end %>
-</ul>
+</div>
