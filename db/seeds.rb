@@ -53,3 +53,42 @@ end
 
 puts "Finished fetching movies up to page #{max_pages}"
 puts "Total movies fetched: #{total_movies}"
+
+
+# seeds.rb
+puts "Entering List and Bookmarks Seeds"
+# Array of list names
+list_names = [
+  "horror",
+  "Comedy",
+  "Action",
+  "Romance",
+  "Autobio",
+  "Sexuality"
+]
+
+# Array of bookmark attributes
+bookmarks_attributes = [
+  { comment: "Scary as hell!", movie_id: 902, list_id: 1 },
+  { comment: "I would die laughing!", movie_id: 1850, list_id: 2 },
+  { comment: "Amazing scenes!", movie_id: 41, list_id: 3 },
+  { comment: "Cute and funny", movie_id: 210, list_id: 4 },
+  { comment: "What the hell!", movie_id: 3143, list_id: 5 },
+  { comment: "Uhm.. I dont know!", movie_id: 786, list_id: 6 }
+]
+
+puts "seeding Lists..."
+# Seed Lists
+list_names.each do |name|
+  List.find_or_create_by(name: name)
+  puts "seeding #{name}"
+end
+puts "Done seeding Lists"
+
+puts "seeding Bookmarks..."
+# Seed Bookmarks
+bookmarks_attributes.each do |attributes|
+  Bookmark.find_or_create_by(attributes)
+end
+puts "Done seeding Bookmarks"
+puts "All done!"
