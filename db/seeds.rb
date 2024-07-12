@@ -58,6 +58,7 @@ require 'json'
 puts "Entering List and Bookmarks Seeds"
 puts "Destroying Lists"
 List.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('lists')
 puts "Destroyed Lists"
 
 # Array of list names with associated image URLs
@@ -101,11 +102,13 @@ puts "Done seeding Lists"
 
 puts "Destroying Bookmarks"
 Bookmark.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('bookmarks')
 puts "Destroyed Bookmarks"
 puts "seeding Bookmarks..."
 # Seed Bookmarks
 bookmarks_attributes.each do |attributes|
   Bookmark.find_or_create_by(attributes)
+  puts "Creating Bookmark with comment: #{attributes[:comment]}"
 end
 puts "Done seeding Bookmarks"
 puts "All done!"
