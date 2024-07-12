@@ -25,7 +25,7 @@ base_url = "https://api.themoviedb.org/3/movie/popular"
 api_key = ENV['TMDB_API_KEY']
 
 page = 1
-max_pages = 5  # Limit to 500 pages
+max_pages = 50  # Limit to 500 pages
 total_movies = 0  # Initialize total movies counter
 
 while page <= max_pages
