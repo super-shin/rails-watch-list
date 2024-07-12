@@ -1,7 +1,11 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container ms-0">
+    <a class="navbar-brand" href="<%= root_path %>"><i class="fa-solid fa-ticket"></i> WatchList</a>
+  </div>
+</nav>
 <div class="signage">
   <div class="sign">watch list</div>
 </div>
-
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-start">
     <h1>Your Lists</h1>
@@ -21,6 +25,11 @@
                 <% end %>
               </div>
               <div class="card-back">
+                <% if list.photo.attached? %>
+                  <%= cl_image_tag list.photo.key, crop: "fill", width: 1080, height: 1920, class: "card-img-top img-fluid card-back-img", alt: list.name %>
+                <% else %>
+                  <img src="<%= Faker::LoremFlickr.image(size: '1080x1920', search_terms: [list.name]) %>" class="card-img-top img-fluid card-back-img" alt="<%= list.name %>">
+                <% end %>
                 <div class="card-body">
                   <h5 class="card-title"><%= list.name.upcase %></h5>
                 </div>
@@ -32,4 +41,3 @@
     <% end %>
   </div>
 </div>
-

@@ -11,16 +11,21 @@ require 'open-uri'
 require 'net/http'
 require 'json'
 
-Clear existing Movie records before seeding
+#Clear existing Bookmark records before seeding
+puts "Destroying Bookmarks"
+Bookmark.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('bookmarks')
+puts "===== DESTROYED BOOKMARKS ====="
+#Clear existing Movie records before seeding
 puts "Destroying Movie Database..."
 Movie.destroy_all
-puts "DESTROYED"
+puts "===== DESTROYED MOVIES ====="
 
 base_url = "https://api.themoviedb.org/3/movie/popular"
 api_key = ENV['TMDB_API_KEY']
 
 page = 1
-max_pages = 500  # Limit to 500 pages
+max_pages = 5  # Limit to 500 pages
 total_movies = 0  # Initialize total movies counter
 
 while page <= max_pages
@@ -38,7 +43,8 @@ while page <= max_pages
       title: movie_hash['title'],
       overview: movie_hash['overview'],
       poster_url: "https://image.tmdb.org/t/p/w500#{movie_hash['poster_path']}",
-      rating: movie_hash['vote_average']
+      rating: movie_hash['vote_average'],
+      background: "https://image.tmdb.org/t/p/w500#{movie_hash['backdrop_path']}"
       # Add more fields as needed
     )
     total_movies += 1
@@ -59,7 +65,7 @@ puts "Entering List and Bookmarks Seeds"
 puts "Destroying Lists"
 List.destroy_all
 ActiveRecord::Base.connection.reset_pk_sequence!('lists')
-puts "Destroyed Lists"
+puts "===== DESTROYED LISTS ====="
 
 # Array of list names with associated image URLs
 list_data = [
@@ -100,10 +106,6 @@ list_data.each do |data|
 end
 puts "Done seeding Lists"
 
-puts "Destroying Bookmarks"
-Bookmark.destroy_all
-ActiveRecord::Base.connection.reset_pk_sequence!('bookmarks')
-puts "Destroyed Bookmarks"
 puts "seeding Bookmarks..."
 # Seed Bookmarks
 bookmarks_attributes.each do |attributes|
