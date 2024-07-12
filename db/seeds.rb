@@ -95,7 +95,7 @@ list_data.each do |data|
     filename: "#{data[:name]}.jpg",
     content_type: 'image/jpeg'
   )
-  puts "Attached image of #{data[:name]}
+  puts "Attached image of #{data[:name]}"
 end
 puts "Done seeding Lists"
 
