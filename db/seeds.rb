@@ -87,10 +87,10 @@ list_data.each do |data|
   puts "seeding #{data[:name]}"
   
   # Attach image from Cloudinary
-  if list.picture.attached?
-    list.picture.purge
+  if list.photo.attached?
+    list.photo.purge
   end
-  list.picture.attach(
+  list.photo.attach(
     io: URI.open(data[:image_url]),
     filename: "#{data[:name]}.jpg",
     content_type: 'image/jpeg'
