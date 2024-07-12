@@ -74,7 +74,8 @@ list_data = [
   { name: "Action", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720716314/production/kpqlolxggobm4kgruoc7b9bb14qz.jpg" },
   { name: "Romance", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720716348/production/cyfo0f7k7ckggzlmx401pdtey2g0.webp" },
   { name: "Autobio", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720716427/production/zlvf63257n2ahme9fsoiz4htmrho.jpg" },
-  { name: "Sexuality", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720716542/production/b15ebe4dx69wgvku7m7orvf9htrd.png" }
+  { name: "Sexuality", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720716542/production/b15ebe4dx69wgvku7m7orvf9htrd.png" },
+  { name: "Adventure", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720777478/development/z5cmszslfxf8lujb5yxrmatau40e.jpg" }
 ]
 
 # Array of bookmark attributes
@@ -84,7 +85,8 @@ bookmarks_attributes = [
   { comment: "Amazing scenes!", movie_id: 41, list_id: 3 },
   { comment: "Cute and funny", movie_id: 210, list_id: 4 },
   { comment: "What the hell!", movie_id: 3143, list_id: 5 },
-  { comment: "Uhm.. I dont know!", movie_id: 786, list_id: 6 }
+  { comment: "Uhm.. I dont know!", movie_id: 786, list_id: 6 },
+  { comment: "It was a ride!", movie_id: 10390, list_id: 7 }
 ]
 
 puts "seeding Lists..."

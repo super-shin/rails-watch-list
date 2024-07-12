@@ -1,43 +1,149 @@
 <nav class="navbar navbar-dark bg-dark">
-  <div class="container ms-0">
+  <div class="container">
     <a class="navbar-brand" href="<%= root_path %>"><i class="fa-solid fa-ticket"></i> WatchList</a>
+    <%= link_to "Create List", new_list_path, class: "btn btn-outline-light ms-auto" %>
   </div>
 </nav>
 <div class="signage">
   <div class="sign">watch list</div>
 </div>
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="d-flex justify-content-between align-items-start">
-    <h1>Your Lists</h1>
-    <%= link_to "Create List", new_list_path, class: "btn btn-outline-light" %>
+    <h1 style="font-size: 8vw">YOUR LISTS</h1>
   </div>
-  <div class="row row-cols-1 row-cols-md-6 overflow-auto">
+  <div class="row row-cols-6 flex-nowrap overflow-auto">
     <% @lists.each do |list| %>
-      <div class="col px-2">
-        <a href="<%= list_path(list) %>" class="text-decoration-none">
-          <div class="flip-card-container">
-            <div class="flip-card">
-              <div class="card-front">
-                <% if list.photo.attached? %>
-                  <%= cl_image_tag list.photo.key, crop: "fill", width: 1080, height: 1920, class: "card-img-top img-fluid", alt: list.name %>
-                <% else %>
-                  <img src="<%= Faker::LoremFlickr.image(size: '1080x1920', search_terms: [list.name]) %>" class="card-img-top img-fluid" alt="<%= list.name %>">
-                <% end %>
-              </div>
-              <div class="card-back">
-                <% if list.photo.attached? %>
-                  <%= cl_image_tag list.photo.key, crop: "fill", width: 1080, height: 1920, class: "card-img-top img-fluid card-back-img", alt: list.name %>
-                <% else %>
-                  <img src="<%= Faker::LoremFlickr.image(size: '1080x1920', search_terms: [list.name]) %>" class="card-img-top img-fluid card-back-img" alt="<%= list.name %>">
-                <% end %>
-                <div class="card-body">
-                  <h5 class="card-title"><%= list.name.upcase %></h5>
+      <% if list.id > 6 %>
+        <div class="col px-2">
+          <a href="<%= list_path(list) %>" class="text-decoration-none">
+            <div class="flip-card-container">
+              <div class="flip-card">
+                <div class="card-front">
+                  <% if list.photo.attached? %>
+                    <%= cl_image_tag list.photo.key, crop: "fill", width: 1080, height: 1920, class: "card-img-top img-fluid", alt: list.name %>
+                  <% else %>
+                    <img src="<%= Faker::LoremFlickr.image(size: '1080x1920', search_terms: [list.name]) %>" class="card-img-top img-fluid" alt="<%= list.name %>">
+                  <% end %>
+                </div>
+                <div class="card-back">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= list.name.upcase %></h5>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </a>
-      </div>
+          </a>
+        </div>
+      <% end %>
     <% end %>
+  </div>
+</div>
+<div class="container mt-4">
+  <h1 style="font-size: 7.5vw">RECOMMENDATIONS</h1>
+  <div class="row row-cols-12 row-cols-sm-9 flex-nowrap overflow-auto">
+    <% @lists.each do |list| %>
+      <% if list.id <= 6 %>
+        <div class="col">
+          <a href="<%= list_path(list) %>" class="text-decoration-none">
+            <div class="flip-card-container">
+              <div class="flip-card">
+                <div class="card-front">
+                  <% if list.photo.attached? %>
+                    <%= cl_image_tag list.photo.key, crop: "fill", width: 1080, height: 1920, class: "card-img-top img-fluid", alt: list.name %>
+                  <% else %>
+                    <img src="<%= Faker::LoremFlickr.image(size: '1080x1920', search_terms: [list.name]) %>" class="card-img-top img-fluid" alt="<%= list.name %>">
+                  <% end %>
+                </div>
+                <div class="card-back">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= list.name.upcase %></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="<%= @first.background %>" class="d-block w-100" alt="<%= @first.title %>">
+            <div class="carousel-caption d-none d-md-block p-3 my-3">
+              <div class="color-overlay"></div>
+              <h1><%= @first.title %></h1>
+              <div class="d-flex align-items-start">
+                <img src="<%= @first.poster_url %>" alt="<%= @first.title %>" class="poster">
+                <p><%= @first.overview %></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="<%= @second.background %>" class="d-block w-100" alt="<%= @second.title %>">
+            <div class="carousel-caption d-none d-md-block p-3 my-3">
+              <div class="color-overlay"></div>
+              <h1><%= @second.title %></h1>
+              <div class="d-flex align-items-start">
+                <img src="<%= @second.poster_url %>" alt="<%= @second.title %>" class="poster">
+                <p><%= @second.overview %></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="<%= @third.background %>" class="d-block w-100" alt="<%= @third.title %>">
+            <div class="carousel-caption d-none d-md-block p-3 my-3">
+              <div class="color-overlay"></div>
+              <h1><%= @third.title %></h1>
+              <div class="d-flex align-items-start">
+                <img src="<%= @third.poster_url %>" alt="<%= @third.title %>" class="poster">
+                <p><%= @third.overview %></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="<%= @fourth.background %>" class="d-block w-100" alt="<%= @fourth.title %>">
+            <div class="carousel-caption d-none d-md-block p-3 my-3">
+              <div class="color-overlay"></div>
+              <h1><%= @fourth.title %></h1>
+              <div class="d-flex align-items-start">
+                <img src="<%= @fourth.poster_url %>" alt="<%= @fourth.title %>" class="poster">
+                <p><%= @fourth.overview %></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="<%= @fifth.background %>" class="d-block w-100" alt="<%= @fifth.title %>">
+            <div class="carousel-caption d-none d-md-block p-3 my-3">
+              <div class="color-overlay"></div>
+              <h1><%= @fifth.title %></h1>
+              <div class="d-flex align-items-start">
+                <img src="<%= @fifth.poster_url %>" alt="<%= @fifth.title %>" class="poster">
+                <p><%= @fifth.overview %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

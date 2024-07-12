@@ -1,8 +1,13 @@
-<h1>Lists#new</h1>
-<p>Find me in app/views/lists/new.html.erb</p>
-<%= link_to "Return Home", root_path %>
-<%= simple_form_for @list do |f| %>
-  <%= f.input :name %>
-  <%= f.input :photo, as: :file %>
-  <%= f.button :submit %>
-<% end %>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container ms-0">
+    <a class="navbar-brand" href="<%= root_path %>"><i class="fa-solid fa-ticket"></i> WatchList</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="pic"></div>
+  <%= simple_form_for @list do |f| %>
+    <%= f.input :name %>
+    <%= f.input :photo, as: :file %>
+    <%= f.button :submit, class: 'btn btn-outline-light' %>
+  <% end %>
+</div>

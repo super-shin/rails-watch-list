@@ -3,6 +3,12 @@ class ListsController < ApplicationController
 
   def index
     @lists = List.all
+    @first = Movie.first
+    @second = Movie.second
+    @third = Movie.third
+    @fourth = Movie.fourth
+    @fifth = Movie.fifth
+    @carousel_items = [@first, @second, @third, @fourth, @fifth]
   end
 
   def show
