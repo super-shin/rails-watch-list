@@ -7,9 +7,12 @@
   <div class="pic"></div>
   <div class="form">
     <%= simple_form_for [@list, @bookmark] do |f| %>
-      <%= f.association :movie %>
-      <%= f.input :comment %>
-      <%= f.error :comment %>
+      <%= f.error_notification %>
+      <%= f.association :movie, include_blank: "Select a Movie", input_html: { data: { controller: 'slim' } } %>
+      <div class="form-group">
+        <%= f.input :comment, error_html: { class: 'is-invalid' } %>
+        <%= f.error :comment %>
+      </div>
       <%= f.button :submit, class: 'btn btn-outline-light' %>
       <%= link_to "Back to List", list_path(@list), class: 'btn btn-light' %>
     <% end %>
