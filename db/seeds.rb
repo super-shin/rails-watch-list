@@ -75,7 +75,7 @@ list_data = [
   { name: "Romance", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720716348/production/cyfo0f7k7ckggzlmx401pdtey2g0.webp" },
   { name: "Autobio", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720716427/production/zlvf63257n2ahme9fsoiz4htmrho.jpg" },
   { name: "Sexuality", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720716542/production/b15ebe4dx69wgvku7m7orvf9htrd.png" },
-  { name: "Adventure", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720777478/development/z5cmszslfxf8lujb5yxrmatau40e.jpg" }
+  { name: "Adventure", image_url: "https://res.cloudinary.com/ddzvfukq6/image/upload/v1720798406/production/10vm3vyx6dfd27o61r3tbcups8b0.jpg" }
 ]
 
 # Array of bookmark attributes
